@@ -16,3 +16,12 @@ class SharpenFilter(ConvolutionFilter) :
                         [-1, -1, -1]
                       ])
     ConvolutionFilter.__init__(self, kernel)
+
+class FindEdgesFilter(ConvolutionFilter) :
+  def __init__(self) :
+    kernel = np.array([
+                        [-1, -1, -1],
+                        [-1,  8, -1],
+                        [-1, -1, -1],
+                      ])
+    ConvolutionFilter.__init__(self, kernel)
