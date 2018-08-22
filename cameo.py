@@ -2,10 +2,12 @@ import cv2
 from managers.capture import CaptureManager
 from managers.window import WindowManager
 import filters
+from static_adapter import ImageStaticAdapter
 
 class Cameo(object) :
   def __init__(self) :
     cap0 = cv2.VideoCapture(0)
+    image1 = ImageStaticAdapter("source/story01.jpg")
     self._windowManager = WindowManager(True, self.onKeypress)
     self._captureManager = CaptureManager(cap0)
     self._isRun = False

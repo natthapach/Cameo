@@ -35,3 +35,10 @@ class EmbossFilter(ConvolutionFilter) :
     ])
     ConvolutionFilter.__init__(self, kernel)
     
+class CannyFilter(object) :
+  def __init__(self):
+    pass
+
+  def apply(self, src) :
+    # return cv2.Canny()
+    pass
