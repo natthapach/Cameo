@@ -4,13 +4,8 @@ import time
 
 class CaptureManager(object):
   def __init__(self,
-              capture,
-              previewWindowManager=None,
-              shouldMirrorPreview=False):
+              capture):
     
-    self.previewWindowManager = previewWindowManager
-    self.shouldMirrorPreview = shouldMirrorPreview
-
     self._capture = capture
     self._channel = 0
     self._enteredFrame = False
@@ -66,13 +61,6 @@ class CaptureManager(object):
       timeElapsed = time.time() - self._startTime
       self._fpsEstimate = self._frameElapsed / timeElapsed
     self._frameElapsed += 1
-
-    if self.previewWindowManager is not None :
-      if self.shouldMirrorPreview:
-        mirroredFrame = np.fliplr(self._frame).copy()
-        self.previewWindowManager.show(mirroredFrame)
-      else :
-        self.previewWindowManager.show(self._frame)
 
     if self.isWritingImage :
       cv2.imwrite(self._imageFilename, self._frame)

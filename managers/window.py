@@ -3,28 +3,31 @@ import numpy as np
 import time
 
 class WindowManager(object) :
-  def __init__(self,
-              windowName,
+  def __init__(self, 
+              shouldMirrorPreview=False,
               keypressCallback=None) :
+    self.shouldMirrorPreview = shouldMirrorPreview
     self.keypressCallback = keypressCallback
-
-    self._windowName = windowName
-    self._isWindowCreated = False
+    self._isWindowsCreated = False
   
   @property
-  def isWindowCreated(self) :
-    return self._isWindowCreated
+  def isWindowsCreated(self) :
+    return self._isWindowsCreated
 
-  def createWindow(self) :
-    cv2.namedWindow(self._windowName)
-    self._isWindowCreated = True
+  def createWindow(self, windowName) :
+    cv2.namedWindow(windowName)
+    self._isWindowsCreated = True
   
-  def show(self, frame) :
-    cv2.imshow(self._windowName, frame)
+  def show(self, windowName, frame) :
+    if self.shouldMirrorPreview:
+        mirroredFrame = np.fliplr(frame).copy()
+        cv2.imshow(windowName, mirroredFrame)
+    else :
+      cv2.imshow(windowName, frame)
   
-  def destroyWindow(self) :
-    cv2.destroyWindow(self._windowName)
-    self._isWindowCreated = False
+  def destroyWindows(self) :
+    cv2.destroyAllWindows()
+    self._isWindowsCreated = False
 
   def processEvents(self) :
     keycode = cv2.waitKey(1)
