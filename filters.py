@@ -25,3 +25,13 @@ class FindEdgesFilter(ConvolutionFilter) :
                         [-1, -1, -1],
                       ])
     ConvolutionFilter.__init__(self, kernel)
+
+class EmbossFilter(ConvolutionFilter) :
+  def __init__(self) :
+    kernel = np.array([
+      [-2, -1, 0],
+      [-1,  1, 1],
+      [ 0,  1, 2]
+    ])
+    ConvolutionFilter.__init__(self, kernel)
+    
