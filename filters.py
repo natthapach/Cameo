@@ -36,9 +36,11 @@ class EmbossFilter(ConvolutionFilter) :
     ConvolutionFilter.__init__(self, kernel)
     
 class CannyFilter(object) :
-  def __init__(self):
-    pass
+  def __init__(self,
+              min_threshold=100,
+              max_threshold=200):
+    self.min_threshold = min_threshold
+    self.max_threshold = max_threshold
 
   def apply(self, src) :
-    # return cv2.Canny()
-    pass
+    return cv2.Canny(src, self.min_threshold, self.max_threshold)

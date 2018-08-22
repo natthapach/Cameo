@@ -17,6 +17,7 @@ class Cameo(object) :
     sharpenFilter = filters.SharpenFilter()
     findEdgesFilter = filters.FindEdgesFilter()
     embossFilter = filters.EmbossFilter()
+    cannyFilter = filters.CannyFilter(100, 200)
 
     while self._isRun :
       self._captureManager.enterFrame()
@@ -25,12 +26,14 @@ class Cameo(object) :
       sharpen = sharpenFilter.apply(frame)
       findEdges = findEdgesFilter.apply(frame)
       emboss = embossFilter.apply(frame)
+      canny = cannyFilter.apply(frame)
 
       # display
       self._windowManager.show("origin", frame)
       self._windowManager.show("sharpen", sharpen)
       self._windowManager.show("find edges", findEdges)
       self._windowManager.show("emboss", emboss)
+      self._windowManager.show("canny", canny)
 
       self._captureManager.exitFrame()
       
