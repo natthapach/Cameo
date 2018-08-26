@@ -2,6 +2,7 @@ import cv2
 from managers.capture import CaptureManager
 from managers.window import WindowManager
 import filters
+import detectors
 from static_adapter import ImageStaticAdapter
 
 class Cameo(object) :
@@ -18,15 +19,18 @@ class Cameo(object) :
     findEdgesFilter = filters.FindEdgesFilter()
     embossFilter = filters.EmbossFilter()
     cannyFilter = filters.CannyFilter(100, 200)
+    faceDetector = detectors.FaceDetector()
 
     while self._isRun :
       self._captureManager.enterFrame()
-      # filter
       frame = self._captureManager.frame
+
+      # filter
       sharpen = sharpenFilter.apply(frame)
       findEdges = findEdgesFilter.apply(frame)
       emboss = embossFilter.apply(frame)
       canny = cannyFilter.apply(frame)
+      faceDetect = faceDetector.detect(frame)
 
       # display
       self._windowManager.show("origin", frame)
@@ -34,6 +38,7 @@ class Cameo(object) :
       self._windowManager.show("find edges", findEdges)
       self._windowManager.show("emboss", emboss)
       self._windowManager.show("canny", canny)
+      self._windowManager.show("Face detector", faceDetect)
 
       self._captureManager.exitFrame()
       
